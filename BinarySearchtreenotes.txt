@@ -1,0 +1,118 @@
+//Infix - LCR: 
+if(root == NULL) {
+	return;
+}
+BSTreeInfix(root->left);
+printf("%d", root -> value);
+BSTreeInfix(root->right);
+
+//Prefix - CLR:
+if(root == NULL) {
+	return;
+}
+printf("%d", root -> value);
+BSTreeInfix(root->left);
+BSTreeInfix(root->right);
+
+//Postfix - LRC:
+if(root == NULL) {
+	return;
+}
+BSTreeInfix(root->left);
+BSTreeInfix(root->right);
+printf("%d", root -> value);
+
+//Number of Nodes:
+int BSTreeNumNodes (BSTree root) {
+	if(root == NULL) {
+		return 0
+	}
+return (1+BSTreeNumNodes(root->left) +BSTreeNumNodes(root->right));
+
+//Sum of Nodes:
+int BSTreeSumNodes (BSTree root) {
+	if (root == NULL){
+		return 0;
+	}
+return root->value +BSTreeSumNodes(root->left) +BSTreeSumNodes(root->right);
+
+//Levels:
+int BSTreeHeight(BSTree root) {
+	if (root == 0){
+		return 0;
+	}
+return 1 + BSTreeHeight(root);
+
+//Tree Width:
+int BSTreeWidth(BSTree root) {
+    return 3 * BSTreeNumNodes(root);
+}
+
+//Insert:
+BSTree BSTreeInsert (BSTree root, int val){
+	if (root == NULL) {
+		return newNode(val);
+	}
+	if (root->value == val) {
+		return root;
+	} else if (root->value < val) {
+		root->left = BSTreeInsert(root->left,val);
+	} else {
+		root->right =BSTreeInsert(root->right,val);
+	}
+	return root;
+}
+
+int BSTreeFind(BSTree, int);
+	if (t == NULL){
+		return NULL;
+	}
+	int diff = cmp(k, keyOf(t->value));
+	if (diff < 0){
+		t->left = delete(t->left, k);
+	} else if (diff > 0){
+		t->right = delete(t->right, k);
+	} else { // found an item with key k
+		Tree n;
+		if (t->left == NULL && t->right == NULL)
+        n = NULL;
+      else if (t->left == NULL)
+         n = t->right;
+      else if (t->right == NULL)
+         n = t->left;
+      else
+         n = join(t->left, t->right);
+      free(t);
+      t = n;
+   }
+   return t;
+
+}
+
+//Delete:
+int BSTreeDelete(BSTree, int) {
+	if (root == NULL) {
+        return NULL;
+    }
+
+	if (root->value <val) {
+		root left = BSTreeDelete(root->left, val);
+	} else if (root->value > val) {
+		root->right = BSTreeDelete(root->right, val);
+	} else {
+		BSTree curr = root->left;
+		BSTree prev = root;
+		if (curr == NULL) {
+			return root->right;
+		}
+		while (curr->right != NULL) {
+			prev = curr;
+			curr = curr->right;
+		}
+		  prev->right = curr->left;
+		  curr->left = root->left;
+		  curr->right = root->right;
+		  return curr;
+		}
+    return root;
+}
